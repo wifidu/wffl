@@ -1,16 +1,16 @@
 My notes :cn:
 
 基本环境
---------
-## Composer 加速
+========
+### Composer 加速
 ```  $composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ ```
-## 创建Laravel应用
+### 创建Laravel应用
 ```$ composer create-project laravel/laravel larabbs --prefer-dist "6.*"```
-## 修改Hosts文件
+### 修改Hosts文件
 ```vim /etc/hosts```
 在最后一行添加
 ```192.168.10.10 laravel.test```
-## 新增站点
+### 新增站点
 ```vim ~/Homestead/Homestead.yaml```
 ```yaml
 ---
@@ -39,22 +39,22 @@ databases:
     - larabbs # <--- 这里
 ```
 `sites` 会将域名映射到虚拟机的`/home/vagrant/Code/laravel/public`文件夹上，`databases`会创建新的数据库
-## 虚拟机指令
+### 虚拟机指令
 - 开启虚拟机`cd ~/Homestead && vagrant up`
 - 进入虚拟机`vagrant ssh`
 - 关闭虚拟机`cd ~/Homestead && vagrant halt`
 - 重启虚拟机`cd ~/Homestead && vagrant provision && vagrant relod`
 
 前端流
-------
-## Laravel项目中使用Bootstrap
+=====
+### Laravel项目中使用Bootstrap
 ```$ composer require laravel/ui --dev```
 
 上面的命令安装完成后，使用以下命令来引入Bootstrap
 
 ```$ php artisan ui bootstrap```
 
-## 运行 Laravel Mix
+### 运行 Laravel Mix
 
 - 更换国内镜像：
 
@@ -72,11 +72,11 @@ databases:
 
 **当修改app.scss之后运行这个命令才能使改变的代码部分生效，当然你也可以在后台一直运行着这个命令。**
 
-## 解决浏览器缓存问题
+### 解决浏览器缓存问题
 
 对`webpack.mix.js`文件稍作修改在`mix()`方法后面加上`.version()`
 
-## 安装字体图标库
+### 安装字体图标库
 
 ```$ yarn add @fortawesome/fontawesome-free```
 
