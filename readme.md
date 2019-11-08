@@ -3,3 +3,4 @@
 ## About wffl
 **wffl** （`WeifanFirstLaravel`）
 这是一个私人小博客，这也是我第一个独自完成的laravel项目。
+![picture alt](https://github.com/wifidu/wffl/blob/master/public/img/bg.jpg)
