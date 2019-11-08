@@ -98,3 +98,22 @@ Of course, you should load it in
 @import '~@fortawesome/fontawesome-free/scss/brands';
 ```
 完了之后别忘了运行`npm run watch-poll`进行编译
+
+中文包
+------
+
+```$ composer require "overtrue/laravel-lang:~3.0"```
+
+完成上面的操作后，将项目文件 `config/app.php` 中的
+
+```Illuminate\Translation\TranslationServiceProvider::class,```
+
+**更换为：**
+
+```Overtrue\LaravelLang\TranslationServiceProvider::class,```
+
+如果想更改语言包自带配置，运行：
+
+```$ php artisan lang:publish zh-CN```
+
+发布后的语言文件存放于 `resources/lang/zh-CN` 文件夹。
