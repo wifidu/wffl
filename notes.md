@@ -117,3 +117,12 @@ Of course, you should load it in
 ```$ php artisan lang:publish zh-CN```
 
 发布后的语言文件存放于 `resources/lang/zh-CN` 文件夹。
+
+安装第三方验证码扩展包
+---------------
+
+```$ composer require "mews/captcha:~3.0"```
+
+生成配置文件`config/captcha.php`：
+
+```$  php artisan vendor:publish --provider='Mews\Captcha\CaptchaServiceProvider' ```
