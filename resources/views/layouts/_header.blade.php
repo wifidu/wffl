@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top">
+<nav class="navbar navbar-expand-lg navbar-light  navbar-static-top">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">
       wffl
@@ -14,6 +14,10 @@
 
     </ul>
 
+    <form class="form-inline my-2 my-lg-0 mr-4">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item"><a class="nav-link" href="">登录</a></li>
       <li class="nav-item"><a class="nav-link" href="">注册</a></li>

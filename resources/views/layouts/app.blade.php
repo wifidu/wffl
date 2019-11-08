@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body style="background-image:url({{ config('app.url') . "/img/bg.jpg" }});">
   <div id="app" class="{{ route_class() }}-page">
 
     @include('layouts._header')
