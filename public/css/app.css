@@ -11100,7 +11100,13 @@ a.text-dark:focus {
   }
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
+  margin-bottom: 90px;
   font-family: Helvetica, "Microsoft YaHei", Arial, sans-serif;
   font-size: 14px;
   background-attachment: fixed;
