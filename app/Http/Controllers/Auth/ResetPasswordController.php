@@ -26,4 +26,10 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+
+    protected function sendResetResponse(\Illuminate\Http\Request $request, $response)
+    {
+        session()->flash('success', '密码更改成功，您已经成功登录！');
+        return redirect($this->redirectPath());
+    }
 }
