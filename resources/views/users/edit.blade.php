@@ -25,9 +25,9 @@
           </div>
           <div class="form-group">
             <label for="introduction-field">个人简介</label>
-            <textaera id="introduction-field" class="form-control" name="introduction" rows="3">
+            <textarea id="introduction-field" class="form-control" name="introduction" rows="3">
               {{ old('introduction', $user->introduction) }}
-            </textaera>
+            </textarea>
           </div>
           <div class="well well-sm"><button class="btn btn-primary" type="submit">保存</button></div>
         </form>
