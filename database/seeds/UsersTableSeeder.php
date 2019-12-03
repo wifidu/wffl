@@ -47,6 +47,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'EnjoyLife';
         $user->email = '888@qq.com';
         $user->avatar = 'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png';
+        $user->password = bcrypt('duweifan');
         $user->save();
     }
 }
