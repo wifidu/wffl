@@ -18,7 +18,7 @@ class TopicRequest extends Request
                     // UPDATE ROLES
                     'title'        => 'required|min:2',
                     'body'         => 'required|min:3',
-                    'categoriy_id' => 'required|numeric'
+                    'category_id' => 'required|numeric'
                 ];
             }
             case 'GET':
