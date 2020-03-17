@@ -1,97 +1,84 @@
 <?php
 
-/**
- * The main site settings page.
- */
+return [
+    'title' => '站点设置',
 
-return array(
+    // 访问权限判断
+    'permission'=> function()
+    {
+        // 只允许站长管理站点配置
+        return Auth::user()->hasRole('Founder');
+    },
 
-    /*
-     * Settings page title
-     *
-     * @type string
-     */
-    'title' => 'Site Settings',
+    // 站点配置的表单
+    'edit_fields' => [
+        'site_name' => [
+            // 表单标题
+            'title' => '站点名称',
 
-    /*
-     * The edit fields array
-     *
-     * @type array
-     */
-    'edit_fields' => array(
-        'site_name' => array(
-            'title' => 'Site Name',
-            'type'  => 'text',
+            // 表单条目类型
+            'type' => 'text',
+
+            // 字数限制
             'limit' => 50,
-        ),
-        'page_cache_lifetime' => array(
-            'title' => 'Page Cache Lifetime (in minutes)',
-            'type'  => 'number',
-        ),
-        'logo' => array(
-            'title'      => 'Image (200 x 150)',
-            'type'       => 'image',
-            'naming'     => 'random',
-            'location'   => public_path(),
-            'size_limit' => 2,
-            'sizes'      => array(
-                array(200, 150, 'crop', public_path().'/resize/', 100),
-            ),
-        ),
-    ),
+        ],
+        'contact_email' => [
+            'title' => '联系人邮箱',
+            'type' => 'text',
+            'limit' => 50,
+        ],
+        'seo_description' => [
+            'title' => 'SEO - Description',
+            'type' => 'textarea',
+            'limit' => 250,
+        ],
+        'seo_keyword' => [
+            'title' => 'SEO - Keywords',
+            'type' => 'textarea',
+            'limit' => 250,
+        ],
+    ],
 
-    /*
-     * The validation rules for the form, based on the Laravel validation class
-     *
-     * @type array
-     */
-    'rules' => array(
-        'site_name'           => 'required|max:50',
-        'page_cache_lifetime' => 'required|integer',
-        'logo'                => 'required',
-    ),
+    // 表单验证规则
+    'rules' => [
+        'site_name' => 'required|max:50',
+        'contact_email' => 'email',
+    ],
 
-    /*
-     * This is run prior to saving the JSON form data
-     *
-     * @type function
-     * @param array		$data
-     *
-     * @return string (on error) / void (otherwise)
-     */
-    'before_save' => function (&$data) {
-        $data['site_name'] = $data['site_name'].' - The Blurst Site Ever';
+    'messages' => [
+        'site_name.required' => '请填写站点名称。',
+        'contact_email.email' => '请填写正确的联系人邮箱格式。',
+    ],
+
+    // 数据即将保存时触发的钩子，可以对用户提交的数据做修改
+    'before_save' => function(&$data)
+    {
+        // 为网站名称加上后缀，加上判断是为了防止多次添加
+        if (strpos($data['site_name'], 'Powered by LaraBBS') === false) {
+            $data['site_name'] .= ' - Powered by LaraBBS';
+        }
     },
 
-    /*
-     * The permission option is an authentication check that lets you define a closure that should return true if the current user
-     * is allowed to view this settings page. Any "falsey" response will result in a 404.
-     *
-     * @type closure
-     */
-    'permission' => function () {
-        return true;
-        //return Auth::user()->hasRole('developer');
-    },
+    // 你可以自定义多个动作，每一个动作为设置页面底部的『其他操作』区块
+    'actions' => [
 
-    /*
-     * This is where you can define the settings page's custom actions
-     */
-    'actions' => array(
-        //Ordering an item up
-        'clear_page_cache' => array(
-            'title'    => 'Clear Page Cache',
-            'messages' => array(
-                'active'  => 'Clearing cache...',
-                'success' => 'Page Cache Cleared',
-                'error'   => 'There was an error while clearing the page cache',
-            ),
-            //the settings data is passed to the closure and saved if a truthy response is returned
-            'action' => function (&$data) {
-                Cache::forget('pages');
+        // 清空缓存
+        'clear_cache' => [
+            'title' => '更新系统缓存',
 
+            // 不同状态时页面的提醒
+            'messages' => [
+                'active' => '正在清空缓存...',
+                'success' => '缓存已清空！',
+                'error' => '清空缓存时出错！',
+            ],
+
+            // 动作执行代码，注意你可以通过修改 $data 参数更改配置信息
+            'action' => function(&$data)
+            {
+                \Artisan::call('cache:clear');
                 return true;
-            },
-        ),
-    ),
-);
+            }
+        ],
+    ],
+];

@@ -9,9 +9,9 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>@yield('title', 'wffl') - wffl</title>
-  <meta name="description" content="@yield('description', 'weifan\'s first blog')" />
-
+  <title>@yield('title', 'LaraBBS') - {{ setting('site_name', 'Laravel 进阶教程') }}</title>
+  <meta name="description" content="@yield('description', setting('seo_description', 'wffl'))" />
+  <meta name="keyword" content="@yield('keyword', setting('seo_keyword', 'wffl,社区,论坛,开发者论坛'))" />
   <!-- Styles -->
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   @yield('styles')
