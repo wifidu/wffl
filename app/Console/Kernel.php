@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('wffl:calculate-active-user')->hourly();
+        $schedule->command('wffl:sync-last-actived-at')->dailyAt('00:00');
     }
 
     /**
