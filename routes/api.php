@@ -25,6 +25,10 @@ Route::prefix('v1')->namespace('Api')
                                 ->name('verificationCodes.store');
                             Route::post('users', 'UsersController@store')
                                 ->name('users.store');
+                            //　第三方登录
+                            Route::post('socials/{social_type}/authorizations', 'AuthorizationController@socialStore')
+                                ->where('social_type', 'weixin')
+                                ->name('social.authorization.store');
                         });
                     Route::middleware('throttle:' . config('api.rate_limits.access'))
                         ->group(function () {
