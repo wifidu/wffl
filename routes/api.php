@@ -29,10 +29,22 @@ Route::prefix('v1')->namespace('Api')
                             Route::post('socials/{social_type}/authorizations', 'AuthorizationController@socialStore')
                                 ->where('social_type', 'weixin')
                                 ->name('social.authorization.store');
+                            // 登录
+                            Route::post('authorizations', 'AuthorizationController@store')
+                                ->name('api.authorization.store');
+                            Route::put('authorizations/current', 'AuthorizationController@update')
+                                ->name('authorizations.update');
+                            Route::delete('authorizations/current', 'AuthorizationController@destroy')
+                                ->name('authorizations.destroy');
                         });
                     Route::middleware('throttle:' . config('api.rate_limits.access'))
                         ->group(function () {
-
+                            Route::get('users/{user}', 'UsersController@show')
+                                ->name('users.show');
+                            Route::middleware('auth:api')->group(function() {
+                                Route::get('user', 'UsersController@me')
+                                    ->name('user.show');
+                            });
                         });
 });
 

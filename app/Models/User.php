@@ -9,8 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
     use LastActivedAtHelper;
     use Traits\ActiveUserHelper;
@@ -27,12 +28,22 @@ class User extends Authenticatable implements MustVerifyEmailContract
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'weixin_unionid', 'weixin_openid',
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     public function notify($instance)
     {
