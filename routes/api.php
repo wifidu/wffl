@@ -63,6 +63,8 @@ Route::prefix('v1')->namespace('Api')
                                 ]);
                                 Route::post('topics/{topic}/replies', 'RepliesController@store')
                                     ->name('topics.replies.store');
+                                Route::delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
+                                    ->name('topics.replies.destroy');
                             });
                         });
 });
