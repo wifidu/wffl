@@ -36,6 +36,10 @@ Route::prefix('v1')->namespace('Api')
                                 ->name('authorizations.update');
                             Route::delete('authorizations/current', 'AuthorizationController@destroy')
                                 ->name('authorizations.destroy');
+                            Route::get('topics/{topic}/replies', 'RepliesController@index')
+                                ->name('topics.replies.index');
+                            Route::get('users/{user}/replies', 'RepliesController@userIndex')
+                                ->name('users.replies.index');
                         });
                     Route::middleware('throttle:' . config('api.rate_limits.access'))
                         ->group(function () {
