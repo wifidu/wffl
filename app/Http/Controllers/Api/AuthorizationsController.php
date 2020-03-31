@@ -1,13 +1,17 @@
 <?php
 
+/*
+ * @author weifan
+ * Tuesday 31st of March 2020 08:20:06 AM
+ */
+
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\Api\AuthorizationRequest;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
+use App\Models\User;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Arr;
 
 class AuthorizationsController extends Controller
 {
@@ -35,11 +39,11 @@ class AuthorizationsController extends Controller
         try {
             if ($code = $request->code) {
                 $response = $driver->getAccessTokenResponse($code);
-                $token = Arr::get($response, 'access_token');
+                $token    = Arr::get($response, 'access_token');
             } else {
                 $token = $request->access_token;
 
-                if ($type == 'weixin') {
+                if ('weixin' == $type) {
                     $driver->setOpenId($request->openid);
                 }
             }
@@ -62,9 +66,9 @@ class AuthorizationsController extends Controller
             // 没有用户，默认创建一个用户
             if (!$user) {
                 $user = User::create([
-                    'name' => $oauthUser->getNickname(),
-                    'avatar' => $oauthUser->getAvatar(),
-                    'weixin_openid' => $oauthUser->getId(),
+                    'name'           => $oauthUser->getNickname(),
+                    'avatar'         => $oauthUser->getAvatar(),
+                    'weixin_openid'  => $oauthUser->getId(),
                     'weixin_unionid' => $unionid,
                 ]);
             }
@@ -72,7 +76,7 @@ class AuthorizationsController extends Controller
             break;
         }
 
-        $token= auth('api')->login($user);
+        $token = auth('api')->login($user);
 
         return $this->respondWithToken($token)->setStatusCode(201);
     }
@@ -81,20 +85,22 @@ class AuthorizationsController extends Controller
     {
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'Bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'token_type'   => 'Bearer',
+            'expires_in'   => auth('api')->factory()->getTTL() * 60,
         ]);
     }
 
     public function update()
     {
         $token = auth('api')->refresh();
+
         return $this->respondWithToken($token);
     }
 
     public function destroy()
     {
         auth('api')->logout();
+
         return response(null, 204);
     }
 }

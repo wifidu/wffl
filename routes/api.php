@@ -41,6 +41,8 @@ Route::prefix('v1')->namespace('Api')
                         ->group(function () {
                             Route::get('users/{user}', 'UsersController@show')
                                 ->name('users.show');
+                            Route::get('categorie', 'CategoriesController@index')
+                                ->name('categorie.index');
                             Route::middleware('auth:api')->group(function() {
                                 Route::get('user', 'UsersController@me')
                                     ->name('user.show');

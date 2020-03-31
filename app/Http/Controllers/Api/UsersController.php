@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * @author weifan
+ * Tuesday 31st of March 2020 08:23:13 AM
+ */
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -17,11 +22,11 @@ class UsersController extends Controller
     {
         $verifyData = \Cache::get($request->verification_key);
 
-        if (! $verifyData) {
+        if (!$verifyData) {
             abort(403, '验证码已经失效');
         }
 
-        if (! hash_equals($verifyData['code'], $request->verification_code)) {
+        if (!hash_equals($verifyData['code'], $request->verification_code)) {
             throw new AuthenticationException('验证码错误');
         }
 
@@ -62,5 +67,4 @@ class UsersController extends Controller
 
         return (new UserResource($user))->showSensitiveFields();
     }
-
 }
