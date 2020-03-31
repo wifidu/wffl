@@ -2,17 +2,18 @@
 
 /*
  * @author weifan
- * Tuesday 31st of March 2020 11:16:04 AM
+ * Tuesday 31st of March 2020 08:11:47 PM
  */
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Queries\TopicQuery;
 use App\Http\Requests\Api\TopicRequest;
-use Illuminate\Http\Request;
 use App\Http\Resources\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -73,5 +74,18 @@ class TopicsController extends Controller
             ->paginate();
 
         return TopicResource::collection($topics);
+    }
+
+    public function show($topicId, TopicQuery $query)
+    {
+        $topic = $query->findOrFail($topicId);
+
+        return new TopicResource($topic);
+
+        /* $topic = QueryBuilder::for(Topic::class) */
+        /*     ->allowedIncludes('user', 'category') */
+        /*     ->findOrFail($topicId); */
+
+        /* return new TopicResource($topic); */
     }
 }
