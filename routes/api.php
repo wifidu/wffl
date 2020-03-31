@@ -41,8 +41,11 @@ Route::prefix('v1')->namespace('Api')
                         ->group(function () {
                             Route::get('users/{user}', 'UsersController@show')
                                 ->name('users.show');
-                            Route::get('categorie', 'CategoriesController@index')
-                                ->name('categorie.index');
+                            Route::get('categories', 'CategoriesController@index')
+                                ->name('categories.index');
+                            Route::resource('topics', 'TopicsController')->only([
+                                'index', 'show'
+                            ]);
                             Route::middleware('auth:api')->group(function() {
                                 Route::get('user', 'UsersController@me')
                                     ->name('user.show');
@@ -53,6 +56,9 @@ Route::prefix('v1')->namespace('Api')
                                 //　上传图片
                                 Route::post('images', 'ImagesController@update')
                                     ->name('images.store');
+                                Route::resource('topics', 'TopicsController')->only([
+                                    'store', 'update', 'destroy'
+                                ]);
                             });
                         });
 });
