@@ -2,7 +2,7 @@
 
 /*
  * @author weifan
- * Tuesday 31st of March 2020 11:12:26 AM
+ * Tuesday 31st of March 2020 01:47:09 PM
  */
 
 namespace App\Http\Requests\Api;
@@ -16,11 +16,23 @@ class TopicRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title'       => 'required|string',
-            'body'        => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'title'       => 'required|string',
+                    'body'        => 'required|string',
+                    'category_id' => 'required|exists:categories,id',
+                ];
+
+                break;
+            case 'PATCH':
+                return [
+                    'title'      => 'string',
+                    'body'       => 'string',
+                    'categories' => 'exists:categories,id',
+                ];
+                break;
+        }
     }
 
     public function attributes()
