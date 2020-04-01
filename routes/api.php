@@ -54,6 +54,9 @@ Route::prefix('v1')->namespace('Api')
                                 ->name('user.topics.index');
                             Route::get('topics/{topic}/replies', 'RepliesController@index')
                                 ->name('topics.replies.index');
+                            Route::get('links', 'LinksController@index')
+                                ->name('links.index');
+
                             Route::middleware('auth:api')->group(function() {
                                 Route::get('user', 'UsersController@me')
                                     ->name('user.show');
