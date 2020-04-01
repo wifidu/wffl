@@ -28,6 +28,7 @@ class AuthorizationsController extends Controller
         if (!$token = \Auth::guard('api')->attempt($credentials)) {
             throw new AuthenticationException('用户名或密码错误');
         }
+        trans();
 
         return $this->respondWithToken($token)->setStatusCode(201);
     }
