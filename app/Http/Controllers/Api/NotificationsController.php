@@ -18,4 +18,11 @@ class NotificationsController extends Controller
 
         return NotificationResource::collection($notifications);
     }
+
+    public function stas(Request $request)
+    {
+        return response()->json([
+            'unread_count' => $request->user()->notification_count
+        ]);
+    }
 }

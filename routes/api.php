@@ -52,6 +52,8 @@ Route::prefix('v1')->namespace('Api')
                             ]);
                             Route::get('users/{user}/topics', 'TopicsController@userIndex')
                                 ->name('user.topics.index');
+                            Route::get('topics/{topic}/replies', 'RepliesController@index')
+                                ->name('topics.replies.index');
                             Route::middleware('auth:api')->group(function() {
                                 Route::get('user', 'UsersController@me')
                                     ->name('user.show');
@@ -71,6 +73,8 @@ Route::prefix('v1')->namespace('Api')
                                     ->name('topics.replies.destroy');
                                 Route::get('notifications', 'NotificationsController@index')
                                     ->name('notifications.index');
+                                Route::get('notifications/stats', 'NotificationsController@stats')
+                                    ->name('notifications.stats');
                             });
                         });
 });
