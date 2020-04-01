@@ -75,6 +75,8 @@ Route::prefix('v1')->namespace('Api')
                                     ->name('notifications.index');
                                 Route::get('notifications/stats', 'NotificationsController@stats')
                                     ->name('notifications.stats');
+                                Route::patch('user/read/notifications', 'NotificationsController@read')
+                                    ->name('user.notifications.read');
                             });
                         });
 });
