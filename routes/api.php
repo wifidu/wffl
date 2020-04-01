@@ -77,6 +77,9 @@ Route::prefix('v1')->namespace('Api')
                                     ->name('notifications.stats');
                                 Route::patch('user/read/notifications', 'NotificationsController@read')
                                     ->name('user.notifications.read');
+                                // 当前登录用户拥有的权限
+                                Route::get('user/permissions', 'PermissionsController@index')
+                                    ->name('user.permission.index');
                             });
                         });
 });
